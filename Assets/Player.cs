@@ -7,11 +7,15 @@ public class Player : MonoBehaviour
   
 
     private Vector2 direction;
-    private float velocity = 0.3f;
-    private float distance = 0.8f;
+    [SerializeField] private float velocity = 0.3f;
+    private float distance = 0.5f;
     public List<Transform> Tail = new List<Transform>();
     Vector3 lastposition;
     public GameObject tailPrefab;
+
+
+
+    [SerializeField] private GameManager _GManager;
 
     private void Start()
     {
@@ -56,14 +60,18 @@ public class Player : MonoBehaviour
         if(collision.gameObject.tag == "Limite")
         {
             Debug.Log("Perdiste");
+            _GManager.SetActive(false);
         }
-        else if(collision.gameObject.tag == "Player")
+        else if(collision.gameObject.tag == "Body")
         {
             Debug.Log("Perdiste");
+            _GManager.SetActive(false);
         }
         else if(collision.gameObject.tag == "Food")
         {
            Tail.Add(Instantiate(tailPrefab, Tail[Tail.Count - 1].position, Quaternion.identity).transform);
+            _GManager.CreateFood();
+            ScoreManager.Instance.IncrementScore(1);
         }
     }
 

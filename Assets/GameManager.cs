@@ -6,27 +6,39 @@ public class GameManager : MonoBehaviour
 {
 
 
-    private GameObject FoodPrefab;
-    private int maxScore;
+    [SerializeField] private GameObject FoodPrefab;
+    [SerializeField] private int maxScore;
     private bool active;
+    public  Vector2 posicioninial;
     [SerializeField] private Vector2[] limites;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
-    }
-    public void SetActive()
-    {
-
+        posicioninial = FoodPrefab.transform.position;
+        Debug.Log(posicioninial);
     }
     public void CreateFood()
     {
 
+        Vector2 RandomPosition = new Vector2(posicioninial.x + 0.5f * Random.Range(1, 18), posicioninial.y + 0.5f * Random.Range(1, 17));
+
+        Debug.Log(RandomPosition);
+
+        FoodPrefab.transform.position = RandomPosition;
+
+
     }
+
+    public void SetActive(bool vida)
+    {
+        active = vida;
+        if(active == false)
+        {
+            ScoreManager.Instance.CompareHighScore();
+            ScoreManager.Instance.EndGame();
+        }
+
+    }
+
+    
 }
