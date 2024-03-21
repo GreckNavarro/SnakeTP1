@@ -12,7 +12,10 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private UI_Manager _UImanager;
 
 
-
+    private void Start()
+    {
+        highScore = GetHighScore();
+    }
 
     private void Awake()
     {
@@ -24,19 +27,43 @@ public class ScoreManager : MonoBehaviour
         {
             Instance = this;
         }
+
+
     }
+
+  
 
     public void IncrementScore(int a)
     {
         actualScore += a;
+        _UImanager.UpdateText();
+
+    }
+
+    public int GetScore()
+    {
+        return actualScore;
     }
 
     public void CompareHighScore()
     {
         if(actualScore > highScore)
         {
-            highScore = actualScore;
+            SaveHighScore(actualScore);
         }
+    }
+
+
+    private void SaveHighScore(int newscore)
+    {
+        PlayerPrefs.SetInt("HighScore", newscore);
+        PlayerPrefs.Save();
+    }
+
+    public int GetHighScore()
+    {
+        int highscore = PlayerPrefs.GetInt("HighScore");
+        return highscore;
     }
 
     public void ResetScore()
@@ -49,8 +76,8 @@ public class ScoreManager : MonoBehaviour
 
     public void EndGame()
     {
+        _UImanager.EndGame(actualScore, GetHighScore());
         Time.timeScale = 0;
-        _UImanager.EndGame(actualScore, highScore);
 
     }
 }

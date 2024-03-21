@@ -24,6 +24,31 @@ public class Player : MonoBehaviour
         direction = Vector2.right;
     }
 
+    void CheckMovement()
+    {
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            if (direction != Vector2.down)
+                direction = Vector2.up;
+        }
+        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            if (direction != Vector2.up)
+                direction = Vector2.down;
+        }
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            if (direction != Vector2.left)
+                direction = Vector2.right;
+        }
+        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            if (direction != Vector2.right)
+                direction = Vector2.left;
+        }
+    }
+
+
     void Movement()
     {
         lastposition = transform.position;
@@ -59,12 +84,10 @@ public class Player : MonoBehaviour
     {
         if(collision.gameObject.tag == "Limite")
         {
-            Debug.Log("Perdiste");
             _GManager.SetActive(false);
         }
         else if(collision.gameObject.tag == "Body")
         {
-            Debug.Log("Perdiste");
             _GManager.SetActive(false);
         }
         else if(collision.gameObject.tag == "Food")
@@ -77,29 +100,6 @@ public class Player : MonoBehaviour
 
 
 
-    void CheckMovement()
-    {
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            if(direction != Vector2.down)
-            direction = Vector2.up;
-        }
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            if (direction != Vector2.up)
-                direction = Vector2.down;
-        }
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            if (direction != Vector2.left)
-                direction = Vector2.right;
-        }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            if (direction != Vector2.right)
-                direction = Vector2.left;
-        }
-    }
 
     private void Update()
     {
