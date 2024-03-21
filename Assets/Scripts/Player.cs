@@ -12,6 +12,8 @@ public class Player : MonoBehaviour
     public List<Transform> Tail = new List<Transform>();
     Vector3 lastposition;
     public GameObject tailPrefab;
+    [SerializeField] private AudioClip dead;
+
 
 
 
@@ -85,10 +87,12 @@ public class Player : MonoBehaviour
         if(collision.gameObject.tag == "Limite")
         {
             _GManager.SetActive(false);
+            AudioManager.Instance.PlaySound(dead);
         }
         else if(collision.gameObject.tag == "Body")
         {
             _GManager.SetActive(false);
+            AudioManager.Instance.PlaySound(dead);
         }
         else if(collision.gameObject.tag == "Food")
         {

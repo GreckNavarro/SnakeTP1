@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ScoreManager : MonoBehaviour
+public class ScoreManager : MonoBehaviourSingleton<ScoreManager>
 {
 
-    public static ScoreManager Instance { get; private set; }
     [SerializeField] private int actualScore;
     [SerializeField] private int highScore;
     [SerializeField] private UI_Manager _UImanager;
+
+
 
 
     private void Start()
@@ -17,19 +18,6 @@ public class ScoreManager : MonoBehaviour
         highScore = GetHighScore();
     }
 
-    private void Awake()
-    {
-        if(Instance != null && Instance != this)
-        {
-            Destroy(this);
-        }
-        else
-        {
-            Instance = this;
-        }
-
-
-    }
 
   
 

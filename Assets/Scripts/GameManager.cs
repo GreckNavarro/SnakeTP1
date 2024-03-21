@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int maxScore;
     private bool active;
     Vector2 posicioninial;
+    [SerializeField] private AudioClip eat;
 
 
     private void Start()
@@ -21,7 +22,7 @@ public class GameManager : MonoBehaviour
     {
 
         Vector2 RandomPosition = new Vector2(posicioninial.x + 0.5f * Random.Range(1, 18), posicioninial.y + 0.5f * Random.Range(1, 17));
-
+        AudioManager.Instance.PlaySound(eat);
 
         FoodPrefab.transform.position = RandomPosition;
 
